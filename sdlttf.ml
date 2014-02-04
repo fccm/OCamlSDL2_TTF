@@ -16,3 +16,5 @@ external init : unit -> unit
 external quit : unit -> unit
   = "caml_TTF_Quit"
 
+external was_init : unit -> bool
+  = "caml_TTF_WasInit"

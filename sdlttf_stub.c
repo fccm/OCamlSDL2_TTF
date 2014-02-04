@@ -31,4 +31,11 @@ caml_TTF_Quit(value unit)
     return Val_unit;
 }
 
+CAMLprim value
+caml_TTF_WasInit(value unit)
+{
+    CAMLparam1(unit);
+    CAMLreturn(Val_bool(TTF_WasInit()));
+}
+
 /* vim: set ts=4 sw=4 et: */
