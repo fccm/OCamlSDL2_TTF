@@ -10,6 +10,8 @@
 *)
 (* TrueType Fonts library for SDL2 *)
 
+type font
+
 external init : unit -> unit
   = "caml_TTF_Init"
 
@@ -18,3 +20,14 @@ external quit : unit -> unit
 
 external was_init : unit -> bool
   = "caml_TTF_WasInit"
+
+external open_font : file:string -> ptsize:int -> font
+  = "caml_TTF_OpenFont"
+
+external open_font_index :
+  file:string -> ptsize:int -> index:int -> font
+  = "caml_TTF_OpenFontIndex"
+
+external close_font : font -> unit
+  = "caml_TTF_CloseFont"
+
