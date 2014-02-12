@@ -69,7 +69,7 @@ caml_SDL_TTF_OpenFontIndex(value file, value ptsize, value index)
         TTF_OpenFontIndex(
                 String_val(file), Int_val(ptsize), Int_val(index));
 
-    if (!font) error("TTF_OpenFontIndex");
+    if (!font) error("Sdlttf.open_font_index");
 
     CAMLreturn(Val_TTF_Font(font));
 }
@@ -94,7 +94,7 @@ SDL_Color SDL_Color_val(value color)
     return c;
 }
 
-#define TTF_Render_Solid(t)                                        \
+#define TTF_Render_Solid(t, l)                                     \
 CAMLprim value                                                     \
 caml_SDL_TTF_Render##t##_Solid(value font, value text, value c)    \
 {                                                                  \
@@ -104,17 +104,17 @@ caml_SDL_TTF_Render##t##_Solid(value font, value text, value c)    \
     surface = TTF_Render##t##_Solid(TTF_Font_val(font),            \
                                     String_val(text),              \
                                     color);                        \
-    if (!surface) error("TTF_Render" #t "Solid");                  \
+    if (!surface) error("sdlttf.render_" #l "_solid");             \
     CAMLreturn(Val_SDL_Surface(surface));                          \
 }
 
-TTF_Render_Solid(Text);
-TTF_Render_Solid(UTF8);
+TTF_Render_Solid(Text, text);
+TTF_Render_Solid(UTF8, utf8);
 
-#define TTF_Render_Shaded(t)                                       \
+#define TTF_Render_Shaded(t, l)                                    \
 CAMLprim value                                                     \
-caml_SDL_TTF_Render##t##_Shaded(value font, value text,            \
-                            value fg, value bg)                    \
+caml_SDL_TTF_Render##t##_Shaded(                                   \
+        value font, value text, value fg, value bg)                \
 {                                                                  \
     CAMLparam4(font, text, fg, bg);                                \
     SDL_Color fgc = SDL_Color_val(fg);                             \
@@ -123,14 +123,14 @@ caml_SDL_TTF_Render##t##_Shaded(value font, value text,            \
     surface = TTF_Render##t##_Shaded(TTF_Font_val(font),           \
                                     String_val(text),              \
                                     fgc, bgc);                     \
-    if (!surface) error("TTF_Render" #t "Shaded");                 \
+    if (!surface) error("sdlttf.render_" #l "_shaded");            \
     CAMLreturn(Val_SDL_Surface(surface));                          \
 }
 
-TTF_Render_Shaded(Text);
-TTF_Render_Shaded(UTF8);
+TTF_Render_Shaded(Text, text);
+TTF_Render_Shaded(UTF8, utf8);
 
-#define TTF_Render_Blended(t)                                      \
+#define TTF_Render_Blended(t, l)                                   \
 CAMLprim value                                                     \
 caml_SDL_TTF_Render##t##_Blended(value font, value text, value c)  \
 {                                                                  \
@@ -140,12 +140,12 @@ caml_SDL_TTF_Render##t##_Blended(value font, value text, value c)  \
     surface = TTF_Render##t##_Blended(TTF_Font_val(font),          \
                                     String_val(text),              \
                                     color);                        \
-    if (!surface) error("TTF_Render" #t "Blended");                \
+    if (!surface) error("sdlttf.render_" #l "_blended");           \
     CAMLreturn(Val_SDL_Surface(surface));                          \
 }
 
-TTF_Render_Blended(Text);
-TTF_Render_Blended(UTF8);
+TTF_Render_Blended(Text, text);
+TTF_Render_Blended(UTF8, utf8);
 
 #define TTF_Size(t)                                                \
 CAMLprim value                                                     \
