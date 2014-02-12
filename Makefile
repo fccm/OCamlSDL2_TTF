@@ -20,10 +20,12 @@ OCAMLDIR = $(shell $(OCAMLC) -where)
 DIRSEP = $(shell $(OCAML) dir_sep.ml)
 
 PKG_CONFIG = pkg-config
+SDL_CONFIG = sdl2-config
 CFLAGS = $(shell $(PKG_CONFIG) --cflags SDL2_ttf)
 CFLAGS += -I$(OCAMLDIR)/sdl2/include/
 LIBS_ = $(shell $(PKG_CONFIG) --libs SDL2_ttf)
 LIBS = $(shell $(OCAML) prm.ml $(LIBS_))
+SDL_PREFIX = $(shell $(SDL_CONFIG) --prefix)
 
 BINDINGS_DIR = sdl2_ttf
 EDITOR = vim
@@ -57,7 +59,8 @@ libsdl2ttf_stubs.a: sdlttf_stub.o
 
 .PHONY: edit
 edit:
-	$(EDITOR) sdlttf.ml sdlttf_stub.c
+	$(EDITOR) sdlttf.ml sdlttf_stub.c \
+	  $(SDL_PREFIX)/include/SDL2/SDL_ttf.h
 
 .PHONY: clean
 clean:
