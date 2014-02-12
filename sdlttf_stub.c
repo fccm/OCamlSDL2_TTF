@@ -164,4 +164,14 @@ caml_SDL_TTF_Size##t(value font, value text)                       \
 TTF_Size(Text);
 TTF_Size(UTF8);
 
+static inline int
+SDL_TTF_STYLE_Flags_ml2c(v)
+{
+    if (v == caml_hash_variant("normal"))       return TTF_STYLE_NORMAL;
+    if (v == caml_hash_variant("bold"))         return TTF_STYLE_BOLD;
+    if (v == caml_hash_variant("italic"))       return TTF_STYLE_ITALIC;
+    if (v == caml_hash_variant("underline"))    return TTF_STYLE_UNDERLINE;
+    if (v == caml_hash_variant("strikethrough")) return TTF_STYLE_STRIKETHROUGH;
+}
+
 /* vim: set ts=4 sw=4 et: */
