@@ -19,7 +19,7 @@
 #include "sdlsurface_stub.h"
 
 CAMLprim value
-caml_TTF_Init(value unit)
+caml_SDL_TTF_Init(value unit)
 {
     int r = TTF_Init();
     if (r) caml_failwith("Sdlttf.init");
@@ -27,14 +27,14 @@ caml_TTF_Init(value unit)
 }
 
 CAMLprim value
-caml_TTF_Quit(value unit)
+caml_SDL_TTF_Quit(value unit)
 {
     TTF_Quit();
     return Val_unit;
 }
 
 CAMLprim value
-caml_TTF_WasInit(value unit)
+caml_SDL_TTF_WasInit(value unit)
 {
     CAMLparam1(unit);
     CAMLreturn(Val_bool(TTF_WasInit()));
@@ -49,26 +49,33 @@ error(char *text)
 }
 
 CAMLprim value
-caml_TTF_OpenFont(value file, value ptsize)
+caml_SDL_TTF_OpenFont(value file, value ptsize)
 {
     CAMLparam2(file, ptsize);
-    TTF_Font *font = TTF_OpenFont(String_val(file), Int_val(ptsize));
-    if (!font) error("TTF_OpenFont");
+    TTF_Font *font =
+        TTF_OpenFont(
+                String_val(file), Int_val(ptsize));
+
+    if (!font) error("Sdlttf.open_font");
 
     CAMLreturn(Val_TTF_Font(font));
 }
 
 CAMLprim value
-caml_TTF_OpenFontIndex(value file, value ptsize, value index)
+caml_SDL_TTF_OpenFontIndex(value file, value ptsize, value index)
 {
     CAMLparam3(file, ptsize, index);
-    TTF_Font *font = TTF_OpenFontIndex(String_val(file), Int_val(ptsize), Int_val(index));
+    TTF_Font *font =
+        TTF_OpenFontIndex(
+                String_val(file), Int_val(ptsize), Int_val(index));
+
     if (!font) error("TTF_OpenFontIndex");
+
     CAMLreturn(Val_TTF_Font(font));
 }
 
 CAMLprim value
-caml_TTF_CloseFont(value font)
+caml_SDL_TTF_CloseFont(value font)
 {
     CAMLparam1(font);
     TTF_CloseFont(TTF_Font_val(font));
@@ -89,7 +96,7 @@ SDL_Color SDL_Color_val(value color)
 
 #define TTF_Render_Solid(t)                                        \
 CAMLprim value                                                     \
-caml_TTF_Render##t##_Solid(value font, value text, value c)        \
+caml_SDL_TTF_Render##t##_Solid(value font, value text, value c)    \
 {                                                                  \
     CAMLparam3(font, text, c);                                     \
     SDL_Color color = SDL_Color_val(c);                            \
@@ -106,7 +113,7 @@ TTF_Render_Solid(UTF8);
 
 #define TTF_Render_Shaded(t)                                       \
 CAMLprim value                                                     \
-caml_TTF_Render##t##_Shaded(value font, value text,                \
+caml_SDL_TTF_Render##t##_Shaded(value font, value text,            \
                             value fg, value bg)                    \
 {                                                                  \
     CAMLparam4(font, text, fg, bg);                                \
@@ -125,7 +132,7 @@ TTF_Render_Shaded(UTF8);
 
 #define TTF_Render_Blended(t)                                      \
 CAMLprim value                                                     \
-caml_TTF_Render##t##_Blended(value font, value text, value c)      \
+caml_SDL_TTF_Render##t##_Blended(value font, value text, value c)  \
 {                                                                  \
     CAMLparam3(font, text, c);                                     \
     SDL_Color color = SDL_Color_val(c);                            \
@@ -142,7 +149,7 @@ TTF_Render_Blended(UTF8);
 
 #define TTF_Size(t)                                                \
 CAMLprim value                                                     \
-caml_TTF_Size##t(value font, value text)                           \
+caml_SDL_TTF_Size##t(value font, value text)                       \
 {                                                                  \
     CAMLparam2(font, text);                                        \
     CAMLlocal1(tup);                                               \
