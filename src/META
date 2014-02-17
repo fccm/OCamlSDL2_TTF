@@ -1,0 +1,9 @@
+name = "sdl2_ttf"
+description = "bindings to the SDL2_TTF library"
+version = "@VERSION@"
+requires = "sdl2"
+
+archive(byte) = "sdl2_ttf.cma"
+archive(native) = "sdl2_ttf.cmxa"
+archive(byte,plugin) = "sdl2_ttf.cma"
+archive(native,plugin) = "sdl2_ttf.cmxs"
