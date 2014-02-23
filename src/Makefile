@@ -31,11 +31,12 @@ OCAMLDEP = ocamldep
 OCAMLMKLIB = ocamlmklib
 CC = gcc
 DIRSEP = $(shell $(OCAML) dir_sep.ml)
+OCSDLINCDIR = $(OCSDLDIR)/include/
 
 PKG_CONFIG = pkg-config
 SDL_CONFIG = sdl2-config
 CFLAGS = $(shell $(PKG_CONFIG) --cflags SDL2_ttf)
-CFLAGS += -I$(OCSDLDIR)
+CFLAGS += -I$(OCSDLINCDIR)
 LIBS_ = $(shell $(PKG_CONFIG) --libs SDL2_ttf)
 LIBS = $(shell $(OCAML) prm.ml $(LIBS_))
 SDL_PREFIX = $(shell $(SDL_CONFIG) --prefix)
