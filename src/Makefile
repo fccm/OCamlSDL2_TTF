@@ -8,26 +8,46 @@
 # Permission is granted to anyone to use this software for any purpose,
 # including commercial applications, and to alter it and redistribute it freely.
 
-OCAML = ocaml
+
+OCAMLFIND = ocamlfind
+USEFIND = $(shell which $(OCAMLFIND) 2>/dev/null)
+
+ifdef USEFIND
+OCAMLC = $(OCAMLFIND) ocamlc
+OCAMLOPT = $(OCAMLFIND) ocamlopt
+OCSDLINC = -package sdl2
+OCSDLDIR = $(shell $(OCAMLFIND) query sdl2)
+else
 OCAMLC = ocamlc
 OCAMLOPT = ocamlopt
+OCSDLINC = -I +sdl2
+OCAMLDIR = $(shell $(OCAMLC) -where)
+OCSDLDIR = $(OCAMLDIR)/sdl2
+endif
+
+OCAML = ocaml
 OCAMLDOC = ocamldoc
 OCAMLDEP = ocamldep
-OCAMLFIND = ocamlfind
 OCAMLMKLIB = ocamlmklib
 CC = gcc
-OCAMLDIR = $(shell $(OCAMLC) -where)
 DIRSEP = $(shell $(OCAML) dir_sep.ml)
+OCSDLINCDIR = $(OCSDLDIR)/include/
 
 PKG_CONFIG = pkg-config
 SDL_CONFIG = sdl2-config
 CFLAGS = $(shell $(PKG_CONFIG) --cflags SDL2_ttf)
-CFLAGS += -I$(OCAMLDIR)/sdl2/include/
+CFLAGS += -I$(OCSDLINCDIR)
 LIBS_ = $(shell $(PKG_CONFIG) --libs SDL2_ttf)
 LIBS = $(shell $(OCAML) prm.ml $(LIBS_))
 SDL_PREFIX = $(shell $(SDL_CONFIG) --prefix)
 
 BINDINGS_DIR = sdl2_ttf
+PREFIX :=
+DESTDIR := $(PREFIX)$(DIRSEP)$(OCAMLDIR)$(DIRSEP)$(BINDINGS_DIR)
+UNINSTALL_DIR := rm -Rf
+INSTALL_DIR := mkdir -p
+INSTALL_FILES := cp -f
+
 EDITOR = vim
 
 .PHONY: all lib opt
@@ -39,10 +59,10 @@ opt: sdl2_ttf.cmxa
 	$(OCAMLC) -c $<
 
 %.cmo: %.ml
-	$(OCAMLC) -c -I +sdl2 $<
+	$(OCAMLC) -c $(OCSDLINC) $<
 
 %.cmx: %.ml
-	$(OCAMLOPT) -c -I +sdl2 $<
+	$(OCAMLOPT) -c $(OCSDLINC) $<
 
 sdlttf_stub.o: sdlttf_stub.c
 	$(OCAMLC) -ccopt "-static $(CFLAGS) -g -O " $<
@@ -66,3 +86,24 @@ edit:
 clean:
 	$(RM) *.[oas] *.cm[ioxta] *.cmx[as] *.so *.dll *.opt *.exe
 
+ifdef USEFIND
+install:
+	$(OCAMLFIND) install $(BINDINGS_DIR) META \
+	  *.cm[aix] *.cmx[as] sdl2*.a *sdl2*_stubs.*
+uninstall:
+	$(OCAMLFIND) remove $(BINDINGS_DIR)
+else
+install:
+	$(INSTALL_DIR) $(DESTDIR)
+	$(INSTALL_FILES) \
+	  *.cm[aix] *.cmx[as] sdl2*.a *sdl2*_stubs.* \
+	  $(DESTDIR)
+uninstall:
+	$(UNINSTALL_DIR) $(DESTDIR)
+endif
+
+reinstall:
+	$(MAKE) clean
+	$(MAKE) all
+	$(MAKE) uninstall
+	$(MAKE) install
