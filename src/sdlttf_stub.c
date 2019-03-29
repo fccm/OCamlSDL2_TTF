@@ -165,7 +165,7 @@ TTF_Size(Text);
 TTF_Size(UTF8);
 
 static inline int
-SDL_TTF_STYLE_Flags_ml2c(v)
+SDL_TTF_STYLE_Flags_ml2c(value v)
 {
     if (v == caml_hash_variant("normal"))       return TTF_STYLE_NORMAL;
     if (v == caml_hash_variant("bold"))         return TTF_STYLE_BOLD;
