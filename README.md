@@ -1,6 +1,6 @@
 # OCaml and SDL_ttf 2.0
 
-![OCaml and SDL_ttf](https://publicdomainvectors.org/photos/Alberti-B.png =250x250)
+![OCaml and SDL_ttf](https://publicdomainvectors.org/photos/Alberti-B.png | width=250)
 
 ## Intro
 
