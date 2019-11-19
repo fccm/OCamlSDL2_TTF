@@ -1,6 +1,6 @@
 # OCaml and SDL_ttf 2.0
 
-![OCaml and SDL_ttf](https://publicdomainvectors.org/photos/Alberti-B.png | width=250)
+![](https://publicdomainvectors.org/photos/Alberti-B.png | width=250)
 
 ## Intro
 
