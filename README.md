@@ -11,6 +11,11 @@ OCamlSDL2_TTF brings you access to the SDL2_ttf library from OCaml.
 This interface to the SDL2_ttf library is known to work with
 OCaml version 4.07.1 and SDL2_ttf version 2.0.15
 
+## Documentation
+
+The API documentation of the SDL2_ttf library can be found at this address:  
+- https://www.libsdl.org/projects/SDL_ttf/docs/
+
 ## Relicensing
 
 If SDL_ttf changes its license in the future to any FLOSS / OSI approved
