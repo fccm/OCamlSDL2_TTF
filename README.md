@@ -1,7 +1,7 @@
 # OCaml and SDL_ttf 2.0
 
 ![OCaml and SDL_ttf](
-http://openclipart.org/image/250px/svg_to_png/188966/Alberti_B.png)
+https://publicdomainvectors.org/photos/Alberti-B.png =250x250)
 
 ## Intro
 
