@@ -9,7 +9,7 @@ OCamlSDL2_TTF brings you access to the SDL2_ttf library from OCaml.
 ## Current State
 
 This interface to the SDL2_ttf library is known to work with
-OCaml version 4.07.1 and SDL2_ttf version 2.0.15
+OCaml versions 4.07.1 until 4.11.1 and SDL2_ttf version 2.0.15
 
 ## Documentation
 
