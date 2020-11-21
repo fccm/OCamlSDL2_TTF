@@ -31,7 +31,7 @@ let () =
   in
   let screen = Window.get_surface window in
 
-  let file = "/usr/share/fonts/gnu-free/FreeSansBold.ttf" in
+  let file = "/usr/share/fonts/TTF/VeraMono.ttf" in
   let font = Sdlttf.open_font ~file ~ptsize:40 in
   let color = { Sdlttf.r = 255; g = 0; b = 0; a = 0 } in
   let text = "Hello SDL2_TTF" in
