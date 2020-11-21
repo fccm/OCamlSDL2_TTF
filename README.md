@@ -16,6 +16,13 @@ OCaml versions 4.07.1 until 4.11.1 and SDL2_ttf version 2.0.15
 The API documentation of the SDL2_ttf library can be found at this address:  
 - https://www.libsdl.org/projects/SDL_ttf/docs/
 
+## Build and Install
+```
+cd src
+make
+make install
+```
+
 ## Relicensing
 
 If SDL_ttf changes its license in the future to any FLOSS / OSI approved
