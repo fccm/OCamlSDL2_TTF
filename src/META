@@ -1,6 +1,6 @@
 name = "sdl2_ttf"
 description = "bindings to the SDL2_TTF library"
-version = "0.01"
+version = "0.02"
 requires = "sdl2"
 
 archive(byte) = "sdl2_ttf.cma"
